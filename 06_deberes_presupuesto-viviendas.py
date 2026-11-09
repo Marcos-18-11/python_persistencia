@@ -16,14 +16,10 @@ with open("empleados.csv","r") as f:
     nombre=max(lista_empleados,key=lambda a:a["salario"])
     print(nombre["empleado"])
     """
-    
+import streamlit as st   
 import csv
-
-presupuesto = float(input("Dime tu presupuesto: "))
-
+presupuesto = st.number_input("Dime tu presupuesto: ")
 with open("houses.csv", "r") as f:
-    datos = csv.DictReader(f)
+    disponibles=list(filter(lambda p:float(p["price"])<=presupuesto,csv.DictReader(f)))
+    st.table(disponibles)
 
-    for row in datos:
-        if float(row["price"]) <= presupuesto:
-            print(row)
